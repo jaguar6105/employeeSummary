@@ -33,3 +33,49 @@ const render = require("./lib/htmlRenderer");
 // for further information. Be sure to test out each class and verify it generates an
 // object with the correct structure and methods. This structure will be crucial in order
 // for the provided `render` function to work! ```
+
+
+//asks the user questions and create the object from the questions
+async function askQuestions(role) {
+    try {
+        const { name } = await inquirer.prompt({
+            message: `What is the name of the ${role}:`,
+            name: "name"
+        });
+        const { id } = await inquirer.prompt({
+            message: `What is the ${role}'s id:`,
+            name: "id"
+        });
+        const { email } = await inquirer.prompt({
+            message: `What is the ${role}'s email:`,
+            name: "email"
+        });
+        if (role == "Manager") {
+            const { room } = await inquirer.prompt({
+                message: "What is the manager's office number:",
+                name: "room"
+            });
+            const employee = new Manager(name, id, email, room);
+            return employee;
+        }
+        else if (role == "Intern") {
+            const { school } = await inquirer.prompt({
+                message: "What school does the intern attend:",
+                name: "school"
+            });
+            const employee = new Intern(name, id, email, school);
+            return employee;
+        }
+        else if (role == "Engineer") {
+            const { github } = await inquirer.prompt({
+                message: "What is the engineer's github:",
+                name: "github"
+            });
+            const employee = new Intern(name, id, email, github);
+            return employee;
+        }
+
+    } catch (err) {
+        console.log(err);
+    }
+}
