@@ -82,7 +82,8 @@ async function askQuestions(role) {
 
 async function init() {
     const employeeList = [];
-    employeeList.push[await askQuestions("Manager")];
+    let manager = await askQuestions("Manager");
+    employeeList.push(manager);
     let run = await askNext();
     while(run) {
         let role = await askUserRole();
@@ -90,6 +91,9 @@ async function init() {
         employeeList.push(employee);
         run = await askNext();
     }
+
+
+    writeToFile(render(employeeList));
 }
 
 //asks if the user wants to add a new user
@@ -127,8 +131,11 @@ async function askUserRole() {
     } catch (err) {
         console.log(err);
     }
-
-
 }
+
+function writeToFile(data) {
+    fs.writeFileSync("./output/team.html", data);
+}
+
 
 init();
