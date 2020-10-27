@@ -71,7 +71,7 @@ async function askQuestions(role) {
                 message: "What is the engineer's github:",
                 name: "github"
             });
-            const employee = new Intern(name, id, email, github);
+            const employee = new Engineer(name, id, email, github);
             return employee;
         }
 
@@ -79,3 +79,5 @@ async function askQuestions(role) {
         console.log(err);
     }
 }
+
+askQuestions("Engineer");
