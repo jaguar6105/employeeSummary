@@ -80,4 +80,55 @@ async function askQuestions(role) {
     }
 }
 
-askQuestions("Engineer");
+async function init() {
+    const employeeList = [];
+    employeeList.push[await askQuestions("Manager")];
+    let run = await askNext();
+    while(run) {
+        let role = await askUserRole();
+        let employee = await askQuestions(role);
+        employeeList.push(employee);
+        run = await askNext();
+    }
+}
+
+//asks if the user wants to add a new user
+async function askNext() {
+    try {
+        const { answer } = await inquirer.prompt({
+            type: "list",
+            choices: ["Yes", "No"],
+            name: "answer",
+            message: "Do you want to add another employee:"
+        });
+        if(answer == "Yes") {
+            return true;
+        }
+        else {
+            return false;
+        }
+
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+//asks if the user what new user they want
+async function askUserRole() {
+    try {
+        const { answer } = await inquirer.prompt({
+            type: "list",
+            choices: ["Manager", "Engineer", "Intern"],
+            name: "answer",
+            message: "What is the new user's role:"
+        });
+        return answer;
+
+    } catch (err) {
+        console.log(err);
+    }
+
+
+}
+
+init();
